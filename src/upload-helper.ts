@@ -104,7 +104,7 @@ export class UploadHelper {
     // Get list of files in the directory.
     let filesList = await getFiles(directoryPath);
 
-    const regex = RegExp(fileFilter);
+    const regex = new RegExp(fileFilter);
     filesList = filesList.filter((fileName) => {
       return regex.test(fileName);
     });
