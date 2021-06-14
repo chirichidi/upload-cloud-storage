@@ -86,6 +86,7 @@ export class UploadHelper {
    *
    * @param bucketName The name of the bucket.
    * @param directoryPath The path of the directory to upload.
+   * @param fileFilter The filter of the files to upload.
    * @param gzip Gzip files on upload.
    * @param resumable Allow resuming uploads.
    * @returns The list of UploadResponses which contains the file and metadata.
@@ -93,6 +94,7 @@ export class UploadHelper {
   async uploadDirectory(
     bucketName: string,
     directoryPath: string,
+    fileFilter: string,
     gzip: boolean,
     resumable: boolean,
     prefix = '',
@@ -100,7 +102,12 @@ export class UploadHelper {
   ): Promise<UploadResponse[]> {
     const pathDirName = path.posix.dirname(directoryPath);
     // Get list of files in the directory.
-    const filesList = await getFiles(directoryPath);
+    let filesList = await getFiles(directoryPath);
+
+    const regex = RegExp(fileFilter);
+    filesList = filesList.filter((fileName) => {
+      return regex.test(fileName);
+    });
 
     const resp = await Promise.all(
       filesList.map(async (filePath) => {
