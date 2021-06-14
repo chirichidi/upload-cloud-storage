@@ -15,6 +15,10 @@ inputs:
       that should be uploaded to the bucket.
       You can specify either the absolute path or the relative path from the action.
     required: true
+  filter:
+    description: |-
+      The filter of files in folder inside the action's filesystem
+    required: false
   destination:
     description: |-
       GCS bucket name of form <bucketname> or with an optional prefix
