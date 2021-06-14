@@ -62,6 +62,7 @@ export class Client {
    * Invokes GCS Helper for uploading file or directory.
    * @param bucketName Name of bucket to upload file/dir.
    * @param path Path of the file/dir to upload.
+   * @param filter filter of the file/dir to upload.
    * @param gzip Gzip files on upload.
    * @param resumable Allow resuming uploads.
    * @param prefix Optional prefix when uploading to GCS.
@@ -70,6 +71,7 @@ export class Client {
   async upload(
     destination: string,
     path: string,
+    filter: string,
     gzip: boolean,
     resumable: boolean,
     predefinedAcl?: PredefinedAcl,
@@ -99,6 +101,7 @@ export class Client {
       const uploadedFiles = await uploader.uploadDirectory(
         bucketName,
         path,
+        filter,
         gzip,
         resumable,
         prefix,

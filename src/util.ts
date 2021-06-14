@@ -35,5 +35,6 @@ export async function getFiles(
       fileList = await getFiles(path.posix.join(directory, item), fileList);
     else fileList.push(path.posix.join(directory, item));
   }
+
   return fileList;
 }
